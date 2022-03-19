@@ -327,6 +327,8 @@ class Debugger(object):
           if loc[2] > 1:
             box_3d = compute_box_3d(dim, loc, rot_y)
             box_2d = project_to_image(box_3d, calib)
+            print("box_2d:<<<<<<<<<<<",box_2d);
+
             self.imgs[img_id] = draw_box_3d(self.imgs[img_id], box_2d, cl)
 
   def compose_vis_add(
@@ -389,8 +391,8 @@ class Debugger(object):
               True,lc,2,lineType=cv2.LINE_AA)
           for e in [[0, 1]]:
             t = 4 if e == [0, 1] else 1
-            cv2.line(bird_view, (rect[e[0]][0], rect[e[0]][1]),
-                    (rect[e[1]][0], rect[e[1]][1]), lc, t,
+            cv2.line(bird_view, (int(rect[e[0]][0]), int(rect[e[0]][1])),
+                    (int(rect[e[1]][0]), int(rect[e[1]][1])), lc, t,
                     lineType=cv2.LINE_AA)
     self.imgs[img_id] = bird_view
 
