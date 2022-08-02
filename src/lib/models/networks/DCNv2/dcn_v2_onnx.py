@@ -17,8 +17,24 @@ import _ext as _backend
 class _DCNv2(Function):
 
     @staticmethod
-    def symbolic(g, input, offset_mask, weight, bias, stride, padding, dilation, deformable_groups):
-        return g.op("Plugin", input, offset_mask, weight, bias, name_s="DCNv2", info_s=json.dumps({
+    def symbolic(
+    g, 
+    input, 
+    offset_mask, 
+    weight, 
+    bias, 
+    stride, 
+    padding, 
+    dilation, 
+    deformable_groups):
+        print("use dcn_v2_onnx symbolic<<<<<<<<<<<<<<<<<")
+        return g.op("DCNv2", 
+        input, 
+        offset_mask, 
+        weight, 
+        bias, 
+        name_s="DCNv2", 
+        info_s=json.dumps({
             "dilation": dilation,
             "padding": padding,
             "stride": stride,
@@ -58,6 +74,7 @@ class _DCNv2(Function):
                                          ctx.dilation[0], ctx.dilation[1],
                                          ctx.deformable_groups)
         ctx.save_for_backward(input, offset, mask, weight, bias)
+        print("use dcn_v2_onnx forward<<<<<<<<<<<<<<<<<")
         return output
 
     @staticmethod

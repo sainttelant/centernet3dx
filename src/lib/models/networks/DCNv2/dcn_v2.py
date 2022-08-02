@@ -67,7 +67,16 @@ class _DCNv2(Function):
 
     @staticmethod
     def symbolic(
-        g, input, offset, mask, weight, bias, stride, padding, dilation, deformable_groups
+        g, 
+        input, 
+        offset, 
+        mask, 
+        weight, 
+        bias, 
+        stride, 
+        padding,
+        dilation, 
+        deformable_groups
     ):
         from torch.nn.modules.utils import _pair
 
@@ -77,7 +86,7 @@ class _DCNv2(Function):
         # as of trt 7, the dcn operation will be translated again by modifying the onnx file
         # so the exporting code is kept to resemble the forward()
         return g.op(
-            "DCNv2_2",
+            "DCNv2",
             input,
             offset,
             mask,
