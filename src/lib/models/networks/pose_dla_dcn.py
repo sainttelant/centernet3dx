@@ -355,7 +355,7 @@ def fill_up_weights(up):
 class DeformConv(nn.Module):
     def __init__(self, chi, cho):
         super(DeformConv, self).__init__()
-        print("DCN(%d,%d,kernel_size=(3,3), stride=1, padding=1, dilation=1, deformable_groups=1)"%(chi,cho))
+        #print("DCN(%d,%d,kernel_size=(3,3), stride=1, padding=1, dilation=1, deformable_groups=1)"%(chi,cho))
         self.actf = nn.Sequential(
             nn.BatchNorm2d(cho, momentum=BN_MOMENTUM),
             nn.ReLU(inplace=True)
@@ -391,16 +391,16 @@ class IDAUp(nn.Module):
     def forward(self, layers, startp, endp):
         for i in range(startp + 1, endp):
             upsample = getattr(self, 'up_' + str(i - startp))
-            print("upsample:",upsample)
+            #print("upsample:",upsample)
             project = getattr(self, 'proj_' + str(i - startp))
-            print("project:",project)
+            #print("project:",project)
             layers[i] = upsample(project(layers[i]))
             node = getattr(self, 'node_' + str(i - startp))
-            print("node:",node)
+            #print("node:",node)
             #print("layers:",layers)
-            print("i:",i)
-            print("layers{}".format(i),layers[i])
-            print(layers[i]+layers[i-1])
+            #print("i:",i)
+            #print("layers{}".format(i),layers[i])
+            #print(layers[i]+layers[i-1])
             
             layers[i] = node(layers[i] + layers[i - 1])
 
@@ -427,13 +427,13 @@ class DLAUp(nn.Module):
         out = [layers[-1]] # start with 32
         for i in range(len(layers) - self.startp - 1):
             ida = getattr(self, 'ida_{}'.format(i))
-            print("ida:",ida)
-            print("ida:",ida)
-            print("ida:",ida)
-            print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
-            print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
-            print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
-            #print(ida(layers, len(layers) -i - 2, len(layers)))
+            #print("ida:",ida)
+            #print("ida:",ida)
+            #print("ida:",ida)
+            #print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
+            #print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
+            #print("<<<<<<<<>>>>>>>>>>>>>before ida<<<<<<<<<<<<<<<<<<<")
+            ##print(ida(layers, len(layers) -i - 2, len(layers)))
             ida(layers, len(layers) -i - 2, len(layers))
             out.insert(0, layers[-1])
         return out
@@ -509,7 +509,7 @@ class DLASeg(nn.Module):
     
 
 def get_pose_net(num_layers, heads, head_conv=256, down_ratio=4):
-  print(">>>>>>>>>>>>>>>>get_pose_net<<<<<<<<<<<<<")
+  #print(">>>>>>>>>>>>>>>>get_pose_net<<<<<<<<<<<<<")
   model = DLASeg('dla{}'.format(num_layers), heads,
                  pretrained=True,
                  down_ratio=down_ratio,

@@ -330,7 +330,10 @@ class opts(object):
         opt.heads.update({'hp_offset': 2})
     else:
       assert 0, 'task not defined!'
+    print('input h w:', opt.input_h, opt.input_w)
     print('heads', opt.heads)
+    #print('weights', opt.weights)
+    print('head conv', opt.head_conv)
     return opt
 
   def init(self, args=''):

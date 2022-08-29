@@ -28,12 +28,20 @@ class DddDataset(data.Dataset):
     img_id = self.images[index]
     img_info = self.coco.loadImgs(ids=[img_id])[0]
     img_path = os.path.join(self.img_dir, img_info['file_name'])
-    img = cv2.imread(img_path)
+    parent_dir = os.path.abspath("..") 
+    houxu = "/data/kitti/training/image_2"
+    wanzheng = parent_dir+houxu
+    new_img_path = os.path.join(wanzheng, img_info['file_name'])
+
+    #img = cv2.imread(img_path)
+  
+    img = cv2.imread(new_img_path)
     if 'calib' in img_info:
       calib = np.array(img_info['calib'], dtype=np.float32)
     else:
       calib = self.calib
-
+    
+    
     height, width = img.shape[0], img.shape[1]
     c = np.array([img.shape[1] / 2., img.shape[0] / 2.])
     if self.opt.keep_res:

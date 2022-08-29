@@ -92,6 +92,7 @@ if __name__ == '__main__':
         cat_id = pred['category_id']
         if sc > 0.2:
           pred_img = add_box(pred_img, bbox, sc, cat_id)
+      cv2.namedWindow("pred{}".format(k),0)
       cv2.imshow('pred{}'.format(k), pred_img)
       # cv2.imwrite('vis/{}_pred{}.png'.format(i, k), pred_img)
     cv2.imshow('gt', gt_img)
